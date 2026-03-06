@@ -33,7 +33,7 @@ export default function FavoritesPageClient({
             </div>
 
             {favoriteCards.length === 0 ? (
-                <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10 text-zinc-300">
+                <div className="glass-panel rounded-2xl p-6 text-zinc-300">
                     You haven’t favorited any cards yet.
                 </div>
             ) : (

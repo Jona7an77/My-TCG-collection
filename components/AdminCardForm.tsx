@@ -384,7 +384,7 @@ export default function AdminCardForm({
     };
 
     return (
-        <div className="rounded-3xl bg-white/5 p-6 ring-1 ring-white/10">
+        <div className="glass-panel rounded-3xl p-6">
             <div className="mb-6">
                 <h2 className="text-xl font-semibold">
                     {isEditMode ? `Edit card ${form.id}` : "Create card"}
@@ -563,7 +563,7 @@ export default function AdminCardForm({
 
                 <div className="mt-4 space-y-4">
                     {(form.moves ?? []).map((move, index) => (
-                        <div key={index} className="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                        <div key={index} className="glass-panel rounded-2xl p-4">
                             <div className="grid gap-4 sm:grid-cols-3">
                                 <Field label="Move name">
                                     <input value={move.name} onChange={(e) => updateMove(index, "name", e.target.value)} className="input" />
@@ -618,7 +618,7 @@ export default function AdminCardForm({
                     }>)).map(({ key, label, default: def, min, max, step, fmt }) => {
                         const val = form.layers.parallax?.[key] ?? def;
                         return (
-                            <div key={key} className="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                            <div key={key} className="glass-panel rounded-2xl p-4">
                                 <div className="mb-2 flex items-center justify-between">
                                     <label className="text-xs text-zinc-300">{label}</label>
                                     <span className="w-12 text-right text-xs font-mono text-zinc-200">{fmt(val)}</span>

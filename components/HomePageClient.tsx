@@ -48,6 +48,14 @@ export default function HomePageClient({
         return t;
     }, [initialCards]);
 
+    /** True when the user has applied any filter / search / non-default sort */
+    const isFiltered =
+        query.trim() !== "" ||
+        rarity !== "All" ||
+        setName !== "All" ||
+        selectedTag !== "All" ||
+        sort !== "id-asc";
+
     const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();
 
@@ -68,29 +76,30 @@ export default function HomePageClient({
 
         list.sort((a, b) => {
             switch (sort) {
-                case "id-asc":
-                    return a.id.localeCompare(b.id);
-                case "id-desc":
-                    return b.id.localeCompare(a.id);
-                case "name-asc":
-                    return a.name.localeCompare(b.name);
-                case "name-desc":
-                    return b.name.localeCompare(a.name);
-                case "rarity-asc":
-                    return (rarityOrder[a.rarity] ?? 0) - (rarityOrder[b.rarity] ?? 0);
-                case "rarity-desc":
-                    return (rarityOrder[b.rarity] ?? 0) - (rarityOrder[a.rarity] ?? 0);
-                case "set-asc":
-                    return a.set.localeCompare(b.set);
-                case "set-desc":
-                    return b.set.localeCompare(a.set);
-                default:
-                    return 0;
+                case "id-asc": return a.id.localeCompare(b.id);
+                case "id-desc": return b.id.localeCompare(a.id);
+                case "name-asc": return a.name.localeCompare(b.name);
+                case "name-desc": return b.name.localeCompare(a.name);
+                case "rarity-asc": return (rarityOrder[a.rarity] ?? 0) - (rarityOrder[b.rarity] ?? 0);
+                case "rarity-desc": return (rarityOrder[b.rarity] ?? 0) - (rarityOrder[a.rarity] ?? 0);
+                case "set-asc": return a.set.localeCompare(b.set);
+                case "set-desc": return b.set.localeCompare(a.set);
+                default: return 0;
             }
         });
 
         return list;
     }, [initialCards, query, rarity, setName, selectedTag, sort]);
+
+    /** Cards grouped by set for the default unfiltered view */
+    const cardsBySet = useMemo(() => {
+        const map = new Map<string, Card[]>();
+        for (const c of initialCards) {
+            if (!map.has(c.set)) map.set(c.set, []);
+            map.get(c.set)!.push(c);
+        }
+        return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b));
+    }, [initialCards]);
 
     const clear = () => {
         setQuery("");
@@ -112,7 +121,7 @@ export default function HomePageClient({
 
                 <div>
                     <h1 className="text-5xl font-semibold text-cyan-500">
-                        My Trading Card Collection
+                        Jon's Trading Card Collection
                     </h1>
                 </div>
 
@@ -124,7 +133,8 @@ export default function HomePageClient({
                 </a>
             </header>
 
-            <section className="mb-6 rounded-2xl bg-white/5 ring-1 ring-white/10 p-4">
+            {/* ── Filter bar ── */}
+            <section className="mb-6 glass-panel rounded-2xl p-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
                     <div className="flex-1">
                         <label className="mb-1 block text-xs text-zinc-300">Search</label>
@@ -135,7 +145,6 @@ export default function HomePageClient({
                             className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 outline-none ring-1 ring-white/10 focus:ring-white/20"
                         />
                     </div>
-
                     <button
                         type="button"
                         onClick={() => setShowMobileFilters((v) => !v)}
@@ -145,66 +154,38 @@ export default function HomePageClient({
                     </button>
                 </div>
 
-                <div
-                    className={clsx(
-                        "mt-4 space-y-4",
-                        showMobileFilters ? "block" : "hidden sm:block"
-                    )}
-                >
+                <div className={clsx("mt-4 space-y-4", showMobileFilters ? "block" : "hidden sm:block")}>
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                         <div>
                             <label className="mb-1 block text-xs text-zinc-300">Rarity</label>
-                            <select
-                                value={rarity}
-                                onChange={(e) => setRarity(e.target.value as any)}
-                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20"
-                            >
+                            <select value={rarity} onChange={(e) => setRarity(e.target.value as any)}
+                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20">
                                 <option value="All">All</option>
                                 <option value="Common">Common</option>
                                 <option value="Rare">Rare</option>
                                 <option value="Ultra Rare">Ultra Rare</option>
                             </select>
                         </div>
-
                         <div>
                             <label className="mb-1 block text-xs text-zinc-300">Set</label>
-                            <select
-                                value={setName}
-                                onChange={(e) => setSetName(e.target.value)}
-                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20"
-                            >
+                            <select value={setName} onChange={(e) => setSetName(e.target.value)}
+                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20">
                                 <option value="All">All</option>
-                                {sets.map((s) => (
-                                    <option key={s} value={s}>
-                                        {s}
-                                    </option>
-                                ))}
+                                {sets.map((s) => <option key={s} value={s}>{s}</option>)}
                             </select>
                         </div>
-
                         <div>
                             <label className="mb-1 block text-xs text-zinc-300">Tag</label>
-                            <select
-                                value={selectedTag}
-                                onChange={(e) => setSelectedTag(e.target.value)}
-                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20"
-                            >
+                            <select value={selectedTag} onChange={(e) => setSelectedTag(e.target.value)}
+                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20">
                                 <option value="All">All</option>
-                                {allTags.map((t) => (
-                                    <option key={t} value={t}>
-                                        {t}
-                                    </option>
-                                ))}
+                                {allTags.map((t) => <option key={t} value={t}>{t}</option>)}
                             </select>
                         </div>
-
                         <div>
                             <label className="mb-1 block text-xs text-zinc-300">Sort</label>
-                            <select
-                                value={sort}
-                                onChange={(e) => setSort(e.target.value as SortKey)}
-                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20"
-                            >
+                            <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)}
+                                className="w-full rounded-xl bg-black/30 px-3 py-2 text-sm text-zinc-100 outline-none ring-1 ring-white/10 focus:ring-white/20">
                                 <option value="id-asc">ID ↑</option>
                                 <option value="id-desc">ID ↓</option>
                                 <option value="name-asc">Name A → Z</option>
@@ -219,30 +200,66 @@ export default function HomePageClient({
 
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="text-sm text-zinc-300">
-                            Showing <span className="text-white">{filtered.length}</span> of{" "}
-                            <span className="text-white">{initialCards.length}</span> cards •
+                            {isFiltered ? (
+                                <>Showing <span className="text-white">{filtered.length}</span> of{" "}
+                                    <span className="text-white">{initialCards.length}</span> cards • </>
+                            ) : (
+                                <><span className="text-white">{initialCards.length}</span> cards across{" "}
+                                    <span className="text-white">{cardsBySet.length}</span> sets • </>
+                            )}
                             Favorites <span className="text-white">{favorites.size}</span>
                         </div>
-
-                        <button
-                            onClick={clear}
-                            className="rounded-xl bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20"
-                        >
+                        <button onClick={clear} className="rounded-xl bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20">
                             Clear filters
                         </button>
                     </div>
                 </div>
             </section>
 
-            <CollectionGrid
-                cards={filtered}
-                favorites={favorites}
-                onToggleFavorite={toggleFavorite}
-                onTagClick={(tag) => {
-                    setSelectedTag(tag);
-                    setShowMobileFilters(false);
-                }}
-            />
+            {/* ── Default view: cards grouped by set ── */}
+            {!isFiltered && (
+                <div className="space-y-10">
+                    {cardsBySet.map(([setTitle, cards]) => (
+                        <section key={setTitle}>
+                            {/* Set header */}
+                            <div className="mb-4 flex items-center gap-4">
+                                <h2 className="text-2xl font-semibold tracking-tight text-white">
+                                    {setTitle}
+                                </h2>
+                                <div className="flex-1 h-px bg-white/10" />
+                                <span className="text-xs text-zinc-400 tabular-nums">
+                                    {cards.length} {cards.length === 1 ? "card" : "cards"}
+                                </span>
+                            </div>
+                            {/* Set container */}
+                            <div className="glass-panel rounded-3xl p-5">
+                                <CollectionGrid
+                                    cards={cards}
+                                    favorites={favorites}
+                                    onToggleFavorite={toggleFavorite}
+                                    onTagClick={(tag) => {
+                                        setSelectedTag(tag);
+                                        setShowMobileFilters(false);
+                                    }}
+                                />
+                            </div>
+                        </section>
+                    ))}
+                </div>
+            )}
+
+            {/* ── Filtered view: flat grid ── */}
+            {isFiltered && (
+                <CollectionGrid
+                    cards={filtered}
+                    favorites={favorites}
+                    onToggleFavorite={toggleFavorite}
+                    onTagClick={(tag) => {
+                        setSelectedTag(tag);
+                        setShowMobileFilters(false);
+                    }}
+                />
+            )}
         </main>
     );
 }

@@ -10,7 +10,7 @@ export default function StarfieldBg() {
     return (
         <div
             aria-hidden
-            className="hidden sm:block pointer-events-none fixed inset-0 z-0 overflow-hidden"
+            className="hidden sm:block pointer-events-none fixed inset-0 -z-10 overflow-hidden"
         >
             {/* Uniform dot grid */}
             <div className="starfield-dots absolute inset-0" />

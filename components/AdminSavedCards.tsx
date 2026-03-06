@@ -33,7 +33,7 @@ export default function AdminSavedCards({
     };
 
     return (
-        <section className="mt-8 rounded-3xl bg-white/5 p-6 ring-1 ring-white/10">
+        <section className="mt-8 glass-panel rounded-3xl p-6">
             <div className="mb-4">
                 <h2 className="text-xl font-semibold">Saved Supabase cards</h2>
                 <p className="mt-2 text-sm text-zinc-300">

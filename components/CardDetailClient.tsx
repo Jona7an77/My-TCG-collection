@@ -113,7 +113,7 @@ export default function CardDetailClient({
                             {card.lore ?? "No lore yet."}
                         </p>
 
-                        <div className="mt-5 rounded-2xl bg-white/5 px-4 py-4 ring-1 ring-white/10">
+                        <div className="glass-panel mt-5 rounded-2xl px-4 py-4">
                             <div className="text-[11px] uppercase tracking-wide text-zinc-400">
                                 Flavor text
                             </div>
@@ -144,7 +144,7 @@ export default function CardDetailClient({
                                 {card.moves.map((m, idx) => (
                                     <div
                                         key={idx}
-                                        className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-4"
+                                        className="glass-panel rounded-2xl p-4"
                                     >
                                         <div className="flex flex-wrap items-center justify-between gap-2">
                                             <div className="text-base font-semibold">{m.name}</div>

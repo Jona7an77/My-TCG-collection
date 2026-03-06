@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     return (
         <main className="mx-auto max-w-md px-5 py-16">
-            <div className="rounded-3xl bg-white/5 p-6 ring-1 ring-white/10">
+            <div className="glass-panel rounded-3xl p-6">
                 <h1 className="text-3xl font-semibold">Admin Login</h1>
                 <p className="mt-2 text-zinc-300">
                     Sign in with your admin email and password.

@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* ── Global typography ── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), sans-serif;
+}
+
+
+
 /* ============================================================
    STARFIELD BACKGROUND
    ============================================================ */
@@ -20,42 +32,43 @@
     radial-gradient(circle, rgba(140, 171, 255, 0.362) 1px, transparent 1px);
   background-size: 36px 36px;
   animation: dots-breathe 5s ease-in-out infinite alternate;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 85%);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 85%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 95%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 95%);
 }
 
-/* --- Bottom corner light sweeps --- */
-/* .starfield-blob {
+/* --- Full-height corner light sweeps (backdrop for glass panels) --- */
+.starfield-blob {
   position: fixed;
+  top: 0;
   bottom: 0;
-  width: 100%;
-  height: 100%;
+  width: 60%;
   pointer-events: none;
   will-change: opacity;
 }
- */
-/* Blue-indigo light – rises from bottom-left corner */
-/* .starfield-blob-blue {
+
+/* Blue-indigo – left side, full height */
+.starfield-blob-blue {
   left: 0;
   right: auto;
-  background: linear-gradient(to top right,
-      rgba(40, 75, 220, 0.18) 0%,
-      rgba(30, 55, 180, 0.06) 35%,
-      transparent 65%);
+  background: linear-gradient(to right,
+      rgba(35, 65, 200, 0.22) 0%,
+      rgba(25, 50, 160, 0.08) 60%,
+      transparent 100%);
   animation: blob-blue 7s ease-in-out infinite alternate;
-} */
+}
 
-/* Violet-magenta light – rises from bottom-right corner */
-/* .starfield-blob-violet {
+/* Violet-magenta – right side, full height */
+.starfield-blob-violet {
   right: 0;
   left: auto;
-  background: linear-gradient(to top left,
-      rgba(150, 30, 210, 0.18) 0%,
-      rgba(110, 20, 170, 0.06) 35%,
-      transparent 62%);
+  background: linear-gradient(to left,
+      rgba(130, 25, 190, 0.22) 0%,
+      rgba(100, 20, 155, 0.08) 60%,
+      transparent 100%);
   animation: blob-violet 9s ease-in-out infinite alternate;
   animation-delay: -3.5s;
-} */
+}
+
 /* Reduced-motion override */
 @media (prefers-reduced-motion: reduce) {
 
@@ -229,15 +242,27 @@
   will-change: transform, opacity, filter;
 }
 
-.glass-panel {
-  background: linear-gradient(180deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(10px);
+@layer utilities {
+  .glass-panel {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    isolation: isolate;
+  }
+
+  .glass-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+    pointer-events: none;
+  }
 }
 
 .rarity-ultra {
