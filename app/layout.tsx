@@ -1,5 +1,6 @@
 import "./globals.css";
 import StarfieldBg from "@/components/StarfieldBg";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: "My TCG Collection",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="relative z-10">
           {children}
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
