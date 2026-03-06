@@ -1,0 +1,96 @@
+[
+    {
+        "id": "001",
+        "name": "Dede",
+        "rarity": "Ultra Rare",
+        "set": "Celestial Rift",
+        "tags": [
+            "human",
+            "fire",
+            "support"
+        ],
+        "artist": "JHLG",
+        "releaseDate": "2026-02-25",
+        "lore": "Una cosita salida de Villa Clara. Esos ojos hacen que te olvides de todo lo malo.",
+        "flavorText": "Una mirada suya y el resto del mundo desaparece.",
+        "number": "001/120",
+        "cardType": "Human",
+        "stats": {
+            "hp": 180,
+            "element": "Fire",
+            "attack": 92,
+            "defense": 76,
+            "speed": 68,
+            "weakness": "Water",
+            "resistance": "Light",
+            "retreatCost": 2
+        },
+        "moves": [
+            {
+                "name": "Starlight Rend",
+                "cost": 2,
+                "damage": 60,
+                "text": "Deal 60 damage. If this card is foiled, add +10 damage."
+            },
+            {
+                "name": "Event Horizon Dive",
+                "cost": 4,
+                "damage": 120,
+                "text": "Deal 120 damage. Next turn, the opponent's first move costs +1."
+            }
+        ],
+        "layers": {
+            "bg": "/cards/001/bg.png",
+            "art": "/cards/001/art.png",
+            "frame": "/cards/001/frame.svg"
+        }
+    },
+    {
+        "id": "004",
+        "name": "Cosmic Breath",
+        "rarity": "Ultra Rare",
+        "set": "Celestial Rift",
+        "tags": [
+            "dragon",
+            "cosmic",
+            "flying"
+        ],
+        "layers": {
+            "bg": "/cards/004/bg.svg",
+            "art": "/cards/004/art.svg",
+            "frame": "/cards/004/frame.svg"
+        }
+    },
+    {
+        "id": "002",
+        "name": "Volt Lynx",
+        "rarity": "Rare",
+        "set": "Neon Wilds",
+        "tags": [
+            "beast",
+            "electric",
+            "fast"
+        ],
+        "layers": {
+            "bg": "/cards/002/bg.svg",
+            "art": "/cards/002/art.svg",
+            "frame": "/cards/002/frame.svg"
+        }
+    },
+    {
+        "id": "003",
+        "name": "Frost Warden",
+        "rarity": "Common",
+        "set": "Northern Echo",
+        "tags": [
+            "ice",
+            "guardian",
+            "tank"
+        ],
+        "layers": {
+            "bg": "/cards/003/bg.svg",
+            "art": "/cards/003/art.svg",
+            "frame": "/cards/003/frame.svg"
+        }
+    }
+]

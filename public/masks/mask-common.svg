@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
+  <!-- Small corner shimmer -->
+  <path d="M520 70 C650 70, 740 160, 740 300 C740 440, 650 520, 520 520
+           C600 420, 620 330, 620 240 C620 150, 600 110, 520 70 Z" fill="white" opacity="0.95"></path>
+  <!-- Tiny strip at bottom -->
+  <rect x="120" y="1010" width="560" height="70" rx="35" fill="white" opacity="0.5"></rect>
+</svg>

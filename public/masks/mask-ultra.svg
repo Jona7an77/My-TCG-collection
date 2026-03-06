@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
+  <defs>
+    <linearGradient id="sweep" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="white" stop-opacity="0"></stop>
+      <stop offset="0.25" stop-color="white" stop-opacity="1"></stop>
+      <stop offset="0.5" stop-color="white" stop-opacity="0"></stop>
+      <stop offset="0.75" stop-color="white" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="white" stop-opacity="0"></stop>
+    </linearGradient>
+    <radialGradient id="v" cx="50%" cy="50%" r="75%">
+      <stop offset="0" stop-color="white" stop-opacity="0.9"></stop>
+      <stop offset="1" stop-color="white" stop-opacity="0.4"></stop>
+    </radialGradient>
+  </defs>
+  <!-- Base: mostly visible -->
+  <rect width="800" height="1200" fill="url(#v)"></rect>
+  <!-- Big diagonal bands -->
+  <rect x="-300" y="200" width="1400" height="220" fill="url(#sweep)" opacity="0.85" transform="rotate(-18 400 600)"></rect>
+  <rect x="-300" y="620" width="1400" height="180" fill="url(#sweep)" opacity="0.65" transform="rotate(-18 400 600)"></rect>
+  <!-- Spark dots -->
+  <g fill="white" opacity="0.85">
+    <circle cx="120" cy="200" r="10"></circle>
+    <circle cx="220" cy="320" r="6"></circle>
+    <circle cx="620" cy="260" r="8"></circle>
+    <circle cx="520" cy="430" r="6"></circle>
+    <circle cx="680" cy="520" r="10"></circle>
+    <circle cx="160" cy="620" r="8"></circle>
+    <circle cx="300" cy="760" r="6"></circle>
+    <circle cx="610" cy="820" r="7"></circle>
+    <circle cx="420" cy="980" r="9"></circle>
+  </g>
+</svg>

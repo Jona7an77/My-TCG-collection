@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
+  <defs>
+    <radialGradient id="spot" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="white" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="white" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <!-- Main art area -->
+  <rect x="90" y="170" width="620" height="820" rx="60" fill="white"></rect>
+  <!-- Add a bright spot in the art area -->
+  <rect x="90" y="170" width="620" height="820" rx="60" fill="url(#spot)" opacity="0.55"></rect>
+  <!-- Top badge shine area -->
+  <ellipse cx="620" cy="170" rx="140" ry="90" fill="white" opacity="0.85"></ellipse>
+</svg>
