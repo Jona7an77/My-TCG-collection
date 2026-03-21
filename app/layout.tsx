@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Syne, Anonymous_Pro } from "next/font/google";
 import StarfieldBg from "@/components/StarfieldBg";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="relative">
           {children}
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
